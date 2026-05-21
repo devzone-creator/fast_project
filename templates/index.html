@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ title }}</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="hero-card">
+
+            <h1>{{ message }}</h1>
+
+            <p class="subtitle">
+                Backend powered fashion inventory system built with FastAPI & Jinja2.
+            </p>
+
+            <div class="buttons">
+
+                <a href="/categories" class="btn">
+                    View Categories
+                </a>
+
+                <a href="/products" class="btn secondary">
+                    View Products
+                </a>
+                <a href="/create-product" class="btn">
+                    Create Products
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

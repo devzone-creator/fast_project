@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Categories</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <div class="top-bar">
+
+            <h1>Categories</h1>
+
+            <a href="/" class="back-btn">
+                Back Home
+            </a>
+
+        </div>
+
+        <div class="category-grid">
+
+            {% for category in categories %}
+
+                <div class="category-card">
+
+                    <div class="category-id">
+                        #{{ category.id }}
+                    </div>
+
+                    <h2>{{ category.name }}</h2>
+
+                    <p class="category-desc">
+                        Browse all {{ category.name }} products
+                    </p>
+
+                    <button class="view-btn">
+                        Open Category
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>

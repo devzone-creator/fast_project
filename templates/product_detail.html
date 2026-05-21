@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }}</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <a href="/products" class="back-btn">
+            ← Back to Products
+        </a>
+
+        <div class="detail-card">
+
+            <div class="product-id">
+                Product #{{ product.id }}
+            </div>
+
+            <h1>{{ product.name }}</h1>
+
+            <p class="detail-price">
+                GHS {{ product.price }}
+            </p>
+
+            <p class="detail-stock">
+                Available Stock: {{ product.stock }}
+            </p>
+
+            <p class="detail-description">
+                Premium fashion product from Amina's Collection.
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

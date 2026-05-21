@@ -1,0 +1,328 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #0f1117;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 100%;
+    max-width: 900px;
+    padding: 20px;
+}
+
+.hero-card{
+    background-color: #1a1d26;
+    padding: 60px;
+    border-radius: 20px;
+
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+
+    text-align: center;
+}
+
+.hero-card h1{
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.subtitle{
+    color: #b0b3c1;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.buttons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.btn{
+    text-decoration: none;
+    background-color: #5b5fff;
+    color: white;
+
+    padding: 14px 28px;
+    border-radius: 10px;
+
+    transition: 0.3s ease;
+    font-weight: bold;
+}
+
+.btn:hover{
+    background-color: #777bff;
+    transform: translateY(-2px);
+}
+
+.secondary{
+    background-color: #272b36;
+}
+
+.secondary:hover{
+    background-color: #343948;
+}
+.page-container{
+    width: 100%;
+    padding: 40px;
+}
+
+.top-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+.top-bar h1{
+    font-size: 2.5rem;
+}
+
+.back-btn{
+    text-decoration: none;
+    color: white;
+
+    background-color: #272b36;
+
+    padding: 12px 20px;
+    border-radius: 10px;
+
+    transition: 0.3s ease;
+}
+
+.back-btn:hover{
+    background-color: #343948;
+}
+
+.product-grid{
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+    gap: 25px;
+}
+
+.product-card{
+    background-color: #1a1d26;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    transition: 0.3s ease;
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.product-card:hover{
+    transform: translateY(-5px);
+}
+
+.product-number{
+    color: #7d82ff;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.product-card h2{
+    margin-bottom: 15px;
+}
+
+.price{
+    color: #52d273;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.stock{
+    color: #b0b3c1;
+    margin-bottom: 20px;
+}
+
+.view-btn{
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+
+    background-color: #5b5fff;
+    color: white;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: 0.3s ease;
+}
+
+.view-btn:hover{
+    background-color: #777bff;
+}
+.category-grid{
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+    gap: 25px;
+}
+
+.category-card{
+    background-color: #1a1d26;
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    transition: 0.3s ease;
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+
+    text-align: center;
+}
+
+.category-card:hover{
+    transform: translateY(-5px);
+}
+
+.category-id{
+    color: #7d82ff;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.category-card h2{
+    margin-bottom: 10px;
+}
+
+.category-desc{
+    color: #b0b3c1;
+
+    margin-bottom: 20px;
+
+    font-size: 0.95rem;
+}
+.detail-card{
+    background-color: #1a1d26;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    max-width: 700px;
+
+    margin: 50px auto;
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+
+.product-id{
+    color: #7d82ff;
+
+    font-weight: bold;
+
+    margin-bottom: 15px;
+}
+
+.detail-card h1{
+    font-size: 3rem;
+
+    margin-bottom: 20px;
+}
+
+.detail-price{
+    color: #52d273;
+
+    font-size: 1.5rem;
+
+    margin-bottom: 15px;
+}
+
+.detail-stock{
+    color: #b0b3c1;
+
+    margin-bottom: 25px;
+}
+
+.detail-description{
+    line-height: 1.8;
+
+    color: #d4d7e2;
+}
+.form-card{
+    background:#1a1d26;
+
+    max-width:700px;
+
+    margin:40px auto;
+
+    padding:40px;
+
+    border-radius:20px;
+}
+
+.form-card h1{
+    margin-bottom:30px;
+}
+
+.form-group{
+    margin-bottom:25px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:10px;
+
+    color:#b0b3c1;
+}
+
+.form-group input{
+    width:100%;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#0f1117;
+
+    color:white;
+
+    font-size:1rem;
+}
+
+.submit-btn{
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#5b5fff;
+
+    color:white;
+
+    font-size:1rem;
+
+    cursor:pointer;
+}

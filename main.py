@@ -1,91 +1,123 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request, HTTPException
+from fastapi import Form
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-app = FastAPI(title="far_api")
+from data.products import products
+from data.categories import categories
 
-# Pydantic Models for request/response
-class Item(BaseModel):
-    id: Optional[int] = None
+
+app = FastAPI(title="Amina Collection")
+
+""" 
+User Model
+class User(BaseModel):
+    id: int
     name: str
-    description: str
-    price: float
-    quantity: int
+    email: str
+    password: str
+"""
 
-class ItemCreate(BaseModel):
+# Product Model
+class Product(BaseModel):
+    id: int
     name: str
-    description: str
     price: float
-    quantity: int
-
-class IemUpdate(BaseModel):
-    name: Optional[str] = None
-    description: Optional[str] = None
-    price: Optional[float] = None
-    quantity: Optional[int] = None
-
-# In memory database
-
-items_db = []
-counter = 1
+    stock: int
 
 
+# Jinja2 Templates
+templates = Jinja2Templates(directory="templates")
+# Static Files
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+# Homepage
 @app.get("/")
-async def root():
-    return {"message": "Welcome to fast python"}
+async def home(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={
+            "request": request,
+            "title": "Amina Collection"
+        }
+    )
+
+# Categories route
+@app.get("/categories")
+async def get_categories(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="categories.html",
+        context={
+            "request": request,
+            "categories": categories
+        }
+    )
+
+# Products Page
+@app.get("/products")
+async def get_products(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="products.html",
+        context={
+            "request": request,
+            "products": products
+        }
+    )
 
 
-# Create
-@app.post("/items/", response_model=Item, status_code=201)
-async def create_item(item: itemCreate):
-    global counter
-    new_item = Item(id=counter, **item.dict())
-    items_db.append(new_item)
-    counter += 1
-    return new_item
+# Single Product Page
+@app.get("/products/{product_id}")
+async def get_single_product( request: Request, product_id: int):
 
+    # Search for matching product
+    for product in products:
 
-# READ all items
-@app.get("/items/", response_model=List[Item])
-async def read_items():
-    return items_db
+        if product["id"] == product_id:
 
-# READ single item
-@app.get("/items/{item_id}", response_model=Item)
-async def read_item(item_id: int):
-    item = next((item for item in items_db if item.id == item_id), None)
-    if not item:
-        raise HTTPException(status_code=404, detail="item not found")
-    return item
+            return templates.TemplateResponse(
+                request=request,
+                name="product_detail.html",
+                context={
+                    "request": request,
+                    "product": product
+                }
+            )
 
+    # If product not found
+    raise HTTPException(
+        status_code=404,
+        detail="Product not found"
+    )
 
+@app.get("/create-product")
+async def create_product_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="create_product.html",
+        context={"request": request}
+    )
 
+@app.post("/create-product")
+async def create_product(
+    request: Request,
+    name: str = Form(...),
+    price: float = Form(...),
+    stock: int = Form(...)
+):
+    new_product = {
+        "id": len(products)+1,
+        "name": name,
+        "price": price,
+        "stock": stock
+    }
 
+    products.append(new_product)
 
-
-
-
-
-
-
-
-
-
-
-"""
-@app.post("/login")
-async def login():
-    return {"token": "abc123"}
-
-@app.get("/users")
-async def get_users():
-    return [{"id": 1,"name": "Alice"},
-        {"id": 2,"name": "Bob"},
-        {"id": 3,"name": "Charlie"},
-        {"id": 4,"name": "David"},
-        {"id": 5,"name": "Eve"}
-    ]
-
-@app.post("/users")
-async def create_user():
-    return {"id": 2, "name": "Bob"}
-"""
+    return new_product

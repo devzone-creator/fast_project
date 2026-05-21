@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Products</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <div class="top-bar">
+
+            <h1>Products</h1>
+
+            <a href="/" class="back-btn">
+                Back Home
+            </a>
+
+        </div>
+
+        <div class="product-grid">
+
+            {% for product in products %}
+
+               <a
+    href="/products/{{ product.id }}"
+    class="product-link"
+>
+
+    <div class="product-card">
+
+        <h2>{{ product.name }}</h2>
+
+        <p>
+            GHS {{ product.price }}
+        </p>
+
+        <p>
+            Stock: {{ product.stock }}
+        </p>
+
+    </div>
+
+</a>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+</html>

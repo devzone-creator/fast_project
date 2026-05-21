@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Create Product</title>
+
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <a href="/products" class="back-btn">
+            ← Back to Products
+        </a>
+
+        <div class="form-card">
+
+            <h1>Create Product</h1>
+
+            <form method="POST">
+
+                <div class="form-group">
+
+                    <label>
+                        Product Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter product name"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <input
+                        type="number"
+                        name="price"
+                        placeholder="Enter price"
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>
+                        Stock
+                    </label>
+
+                    <input
+                        type="number"
+                        name="stock"
+                        placeholder="Enter stock quantity"
+                    >
+
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    Create Product
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
