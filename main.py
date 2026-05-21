@@ -167,3 +167,19 @@ async def edit_product(
         status_code=404,
         detail="Product not found"
     )
+
+@app.post("/products/{product_id}/delete")
+async def delete_product(product_id: int):
+    for product in products:
+        if product["id"] == product_id:
+            products.remove(product)
+
+            return RedirectResponse(
+                url="/products",
+                status_code=303
+            )
+        
+    raise HTTPException(
+        status_code=404,
+        detail="Product not found"
+    )
