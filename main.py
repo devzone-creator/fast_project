@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Request, HTTPException
 from fastapi import Form
-from fastapi.responses import HTMLResponse
+from fastapi.responses import RedirectResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -120,4 +120,26 @@ async def create_product(
 
     products.append(new_product)
 
-    return new_product
+    return RedirectResponse(
+        url="/products",
+        status_code=303
+    )
+
+# Update : Working with Prefilled form data
+
+@app.get("/products/{product_id}/edit")
+async def edit_product_page(request: Request, product_id: int):
+    for product in products:
+        if product["id"] == product_id:
+            return templates.TemplateResponse(
+                request=request,
+                name="edit_product.html",
+                context={
+                    "request": request,
+                    "product": product
+                }
+            )
+    raise HTTPException(
+        status_code=404,
+        detail="Product not found"
+    )
