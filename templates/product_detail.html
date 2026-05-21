@@ -1,48 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ product.name }}</title>
-
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/style.css" />
 </head>
-
 <body>
-
     <div class="page-container">
-
-        <a href="/products" class="back-btn">
-            ← Back to Products
-        </a>
+        <a href="/products" class="back-btn"> ← Back to Products </a>
 
         <a href="/products/{{ product.id }}/edit" class="edit-btn">
             Edit Product
         </a>
         <div class="detail-card">
-
-            <div class="product-id">
-                Product #{{ product.id }}
-            </div>
+            <div class="product-id">Product #{{ product.id }}</div>
 
             <h1>{{ product.name }}</h1>
 
-            <p class="detail-price">
-                GHS {{ product.price }}
-            </p>
+            <p class="detail-price">GHS {{ product.price }}</p>
 
-            <p class="detail-stock">
-                Available Stock: {{ product.stock }}
-            </p>
+            <p class="detail-stock">Available Stock: {{ product.stock }}</p>
 
             <p class="detail-description">
                 Premium fashion product from Amina's Collection.
             </p>
-
         </div>
-
     </div>
-
+    <form action="/products/{{ product.id }}/delete" method="POST">
+        <button class="delete-btn">Delete Product</button>
+    </form>
 </body>
+
 </html>

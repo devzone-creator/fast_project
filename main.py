@@ -143,3 +143,27 @@ async def edit_product_page(request: Request, product_id: int):
         status_code=404,
         detail="Product not found"
     )
+
+@app.post("/products/{product_id}/edit")
+async def edit_product(
+
+    product_id: int,
+    name: str = Form(...),
+    price: float = Form(...),
+    stock: int = Form(...)
+):
+    for product in products:
+        if product["id"] == product_id:
+            product["name"] = name
+            product["price"] = price
+            product["stock"] = stock
+
+            return RedirectResponse(
+                url=f"/products/{product_id}",
+                status_code=303
+            )
+
+    raise HTTPException(
+        status_code=404,
+        detail="Product not found"
+    )
