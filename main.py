@@ -34,6 +34,13 @@ templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
+def search_product(product_id: int):
+    for product in products:
+        if product["id"] == product_id:
+            return product
+    return None
+
+
 # Homepage
 @app.get("/")
 async def home(request: Request):
@@ -77,23 +84,21 @@ async def get_products(request: Request):
 async def get_single_product( request: Request, product_id: int):
 
     # Search for matching product
-    for product in products:
-
-        if product["id"] == product_id:
-
-            return templates.TemplateResponse(
-                request=request,
-                name="product_detail.html",
-                context={
-                    "request": request,
-                    "product": product
-                }
-            )
-
-    # If product not found
-    raise HTTPException(
-        status_code=404,
-        detail="Product not found"
+    product = search_product(product_id)
+    if not product:
+        # If product not found
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="product_detail.html",
+        context={
+            "request": request,
+            "product": product
+        }
     )
 
 @app.get("/create-product")
@@ -106,7 +111,7 @@ async def create_product_page(request: Request):
 
 @app.post("/create-product")
 async def create_product(
-    request: Request,
+    
     name: str = Form(...),
     price: float = Form(...),
     stock: int = Form(...)
@@ -129,19 +134,22 @@ async def create_product(
 
 @app.get("/products/{product_id}/edit")
 async def edit_product_page(request: Request, product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            return templates.TemplateResponse(
-                request=request,
-                name="edit_product.html",
-                context={
-                    "request": request,
-                    "product": product
-                }
-            )
-    raise HTTPException(
-        status_code=404,
-        detail="Product not found"
+    # Search for matching product
+    product = search_product(product_id)
+    if not product:
+        # If product not found
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+    
+    return templates.TemplateResponse(
+        request=request,
+        name="edit_product.html",
+        context={
+            "request": request,
+            "product": product
+        }
     )
 
 @app.post("/products/{product_id}/edit")
@@ -152,34 +160,35 @@ async def edit_product(
     price: float = Form(...),
     stock: int = Form(...)
 ):
-    for product in products:
-        if product["id"] == product_id:
-            product["name"] = name
-            product["price"] = price
-            product["stock"] = stock
-
-            return RedirectResponse(
-                url=f"/products/{product_id}",
-                status_code=303
-            )
-
-    raise HTTPException(
-        status_code=404,
-        detail="Product not found"
+    product = search_product(product_id)
+    if not product:
+        # If product not found
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+    product["name"] = name
+    product["price"] = price
+    product["stock"] = stock
+    
+    return RedirectResponse(
+        url="/products",
+        status_code=303
     )
+
 
 @app.post("/products/{product_id}/delete")
 async def delete_product(product_id: int):
-    for product in products:
-        if product["id"] == product_id:
-            products.remove(product)
+    product = search_product(product_id)
+    if not product:
+        # If product not found
+        raise HTTPException(
+            status_code=404,
+            detail="Product not found"
+        )
+    products.remove(product)
 
-            return RedirectResponse(
-                url="/products",
-                status_code=303
-            )
-        
-    raise HTTPException(
-        status_code=404,
-        detail="Product not found"
+    return RedirectResponse(
+        url="/products",
+        status_code=303
     )
